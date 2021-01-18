@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.zhouqi</groupId>
+	<artifactId>qd-platform</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>${project.artifactId}</name>
+	<description></description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.test.skip>true</maven.test.skip>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		<maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+	</properties>
+	<build>
+		<plugins>
+		</plugins>
+	</build>
+	<scm>
+		<tag>master</tag>
+		<url>https://github.com/18301069135/qd-platform.git</url>
+		<connection>scm:git:https://github.com/18301069135/qd-platform.git</connection>
+		<developerConnection>scm:git:git@github.com:18301069135/qd-platform.git</developerConnection>
+	</scm>
+	<developers>
+		<developer>
+			<id>qd-platform</id>
+			<name>18301069135</name>
+			<email>422041086@qq.com</email>
+			<url>https://github.com/18301069135</url>
+		</developer>
+	</developers>
+	<modules>
+	<module>qd-core</module>
+	</modules>
+</project>
