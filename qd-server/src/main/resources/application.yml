@@ -1,0 +1,53 @@
+###此项为必配项：qd-server端口,必须保障未占用
+server:
+  port: 8081
+spring:
+  application:
+    name: qd-server
+  datasource:
+    #DB用户名
+    username: QD_PLATFORM
+    #DB密码
+    password: 1
+    #DB连接
+    url: jdbc:oracle:thin:@172.16.101.34:1521/orcl
+    driverClassName: oracle.jdbc.OracleDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #连接池参数设置
+    druid:
+      #初始化连接池的连接数量 大小，最小，最大
+      initial-size: 20
+      min-idle: 20
+      max-active: 200
+      #配置获取连接等待超时的时间
+      max-wait: 100000
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 30000
+      query-timeout: 0
+ 
+# 分页
+pagehelper:
+  helperDialect: dm
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+## 日志
+logging:
+  config: classpath:log4j2.xml
+
+# 线程池
+thread.pool:
+  corePoolSize: 8
+  maxPoolSize: 16
+  queueCapacity: 300
+  keepAliveSeconds: 60
+  threadNamePrefix: asyn-excutor-
+  allowCoreThreadTimeout: true
+
+##外部文件存放根路径
+file:
+  root-path: D:/test/logs/
