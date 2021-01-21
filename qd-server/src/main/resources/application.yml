@@ -39,14 +39,13 @@ pagehelper:
 logging:
   config: classpath:log4j2.xml
 
-# 线程池
-thread.pool:
-  corePoolSize: 8
-  maxPoolSize: 16
-  queueCapacity: 300
-  keepAliveSeconds: 60
-  threadNamePrefix: asyn-excutor-
-  allowCoreThreadTimeout: true
+#token令牌
+token:
+  # token超时时间默认为2个小时
+  expire:
+      seconds: 7200
+  # token签名加密字符串
+  jwtSecret: (XIAO:)_$^11244^%$_(WEI:)_@@++--(LAO:)_++++_.sds_(SHI:)
 
 ##外部文件存放根路径
 file:

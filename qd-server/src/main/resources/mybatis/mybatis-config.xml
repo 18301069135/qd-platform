@@ -9,13 +9,13 @@
 		<!-- 空值处理 -->
 		<setting name="jdbcTypeForNull" value="NULL" />
 		<!-- 打印sql日志 -->
-		<!-- <setting name="logImpl" value="STDOUT_LOGGING" /> -->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
 		<!-- 开启二级缓存 -->
 		<setting name="cacheEnabled" value="true" />
 		<!-- 下划线自动映射到驼峰命名 -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 		<!--日志配置 -->
-		<!-- <setting name="logImpl" value="log4j2"/> -->
+		<setting name="logImpl" value="log4j2"/>
 	</settings>
 
 	<!--字段类型配置 -->
@@ -31,7 +31,8 @@
 		<typeAlias alias="List" type="java.util.List" />
 		<typeAlias alias="ArrayList" type="java.util.ArrayList" />
 		<typeAlias alias="LinkedList" type="java.util.LinkedList" />
+		<!--实体类对应别名-->
+		<typeAlias alias="QdToken" type="com.qd.server.model.QdToken" />
+
 	</typeAliases>
-
-
 </configuration>
