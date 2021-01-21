@@ -10,4 +10,10 @@ public class QdResource implements Serializable {
 
 	private String id;
 
+	private String resourcePattern;
+
+	private String resourceMethod;
+
+	private String type;
+
 }

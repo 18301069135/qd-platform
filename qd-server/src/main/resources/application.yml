@@ -46,6 +46,11 @@ token:
       seconds: 7200
   # token签名加密字符串
   jwtSecret: (XIAO:)_$^11244^%$_(WEI:)_@@++--(LAO:)_++++_.sds_(SHI:)
+  
+## 资源类型
+resource:
+  type:
+      http: http
 
 ##外部文件存放根路径
 file:

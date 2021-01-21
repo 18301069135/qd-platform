@@ -35,19 +35,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private AuthenticationFailureHandler authenticationFailureHandler; // 认证失败
 	@Autowired
 	private LogoutSuccessHandler logoutSuccessHandler; // 登出成功
-//	@Autowired
-//	private AuthenticationEntryPoint authenticationEntryPoint; // 认证异常
-//	@Autowired
-//	private AccessDeniedHandler accessDeniedHandler; // 授权失败
+	@Autowired
+	private AuthenticationEntryPoint authenticationEntryPoint; // 认证异常
+	@Autowired
+	private AccessDeniedHandler accessDeniedHandler; // 授权失败
 	@Autowired
 	@Qualifier("userDetailsServiceImpl")
 	private UserDetailsService userDetailsService; // 自己实现的UserDetailsService
 	@Autowired
 	private TokenFilter tokenFilter; // token过滤器，处理客户端的token参数
-//	@Autowired
-//	private FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource; // 授权拦截器，根据url获取所需权限
-//	@Autowired
-//	private AccessDecisionManager accessDecisionManager; // 授权决策
+	@Autowired
+	private FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource; // 授权拦截器，根据url获取所需权限
+	@Autowired
+	private AccessDecisionManager accessDecisionManager; // 授权决策
 
 	// 密码加密方式
 	@Bean
@@ -68,25 +68,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		// 基于token，所以不需要session
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//		http.authorizeRequests()
+		http.authorizeRequests()
 				// 放开所有路径
-//				.antMatchers("/**").permitAll()
+				.antMatchers("/**").permitAll()
 				// 真正的授权决策
-//				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-//					@Override
-//					public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-//						o.setSecurityMetadataSource(filterInvocationSecurityMetadataSource);
-//						o.setAccessDecisionManager(accessDecisionManager);
-//						return o;
-//					}
-//				});
+				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+					@Override
+					public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+						// 授权拦截器，根据url获取所需权限
+						o.setSecurityMetadataSource(filterInvocationSecurityMetadataSource);
+						// 授权决策
+						o.setAccessDecisionManager(accessDecisionManager);
+						return o;
+					}
+				});
 		http.formLogin().loginProcessingUrl("/login").successHandler(authenticationSuccessHandler)
 				.failureHandler(authenticationFailureHandler);
-//		http.exceptionHandling()
-//				// 授权异常
-//				.accessDeniedHandler(accessDeniedHandler)
-//				// 认证异常
-//				.authenticationEntryPoint(authenticationEntryPoint);
+		http.exceptionHandling()
+				// 授权异常
+				.accessDeniedHandler(accessDeniedHandler)
+				// 认证异常
+				.authenticationEntryPoint(authenticationEntryPoint);
 		http.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
 
 		// 解决不允许显示在iframe的问题
