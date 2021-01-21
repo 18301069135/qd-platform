@@ -14,6 +14,17 @@
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-
+		<!-- json转换 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>
