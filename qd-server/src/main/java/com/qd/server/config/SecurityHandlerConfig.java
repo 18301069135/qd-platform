@@ -74,7 +74,7 @@ public class SecurityHandlerConfig {
 					log.info("用户：" + loginUser.getUsername() + "已经在其它地方登录过，踢除！");
 				}
 				QdUser user = userService.getByCode(loginUser.getUser().getCode());
-				user.setError_num(0);
+				user.setErrorNum(0);
 				userService.edit(user, false);
 				Token token = tokenService.save(loginUser);
 				ResponseUtil.responseJson(response, HttpStatus.OK.value(), token);
@@ -135,7 +135,8 @@ public class SecurityHandlerConfig {
 			@Override
 			public void commence(HttpServletRequest request, HttpServletResponse response,
 					AuthenticationException authException) throws IOException, ServletException {
-
+				ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", authException.getMessage());
+				ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
 			}
 		};
 	}
@@ -151,7 +152,9 @@ public class SecurityHandlerConfig {
 			@Override
 			public void handle(HttpServletRequest request, HttpServletResponse response,
 					AccessDeniedException accessDeniedException) throws IOException, ServletException {
-
+				ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "",
+						accessDeniedException.getMessage());
+				ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
 			}
 		};
 	}
@@ -196,9 +199,10 @@ public class SecurityHandlerConfig {
 			}
 		};
 	}
-		
+
 	/**
 	 * 授权拦截器，根据url获取所需权限
+	 * 
 	 * @return
 	 */
 	@Bean

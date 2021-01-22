@@ -73,7 +73,7 @@ public class LoginUser implements UserDetails {
 	 */
 	@Override
 	public boolean isAccountNonLocked() {
-		return user.getIs_lock() == 0 ? true : false;
+		return user.getIsLock() == 0 ? true : false;
 	}
 
 	/***

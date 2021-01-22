@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.util.DigestUtils;
 
 import com.qd.server.filter.TokenFilter;
 
@@ -98,4 +99,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
+	public static void main(String[] args) {
+		String password = DigestUtils.md5DigestAsHex("1".getBytes());
+		System.out.println(new BCryptPasswordEncoder().encode(password));
+
+	}
 }

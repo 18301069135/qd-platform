@@ -39,10 +39,13 @@ public class UserDetailsServiceImpl
 	public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
 		String userCode = event.getAuthentication().getPrincipal().toString();
 		QdUser user = userService.getByCode(userCode);
-		if (user.getError_num() == 5) {
-			user.setIs_lock(1);
+		if (user == null) {
+			throw new UsernameNotFoundException("用户名：" + userCode + "不存在！");
+		}
+		if (user.getErrorNum() == 5) {
+			user.setIsLock(1);
 		} else {
-			user.setError_num(user.getError_num() + 1);
+			user.setErrorNum(user.getErrorNum() + 1);
 		}
 		userService.edit(user, false);
 	}
