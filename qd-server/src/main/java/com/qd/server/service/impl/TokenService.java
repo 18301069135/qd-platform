@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qd.core.util.DateUtil;
+import com.qd.core.util.DateUtils;
 import com.qd.server.mapper.QdTokenMapper;
 import com.qd.server.model.po.QdToken;
 import com.qd.server.model.vo.LoginUser;
@@ -53,9 +53,9 @@ public class TokenService implements ITokenService {
 		loginUser.setExpireTime(loginUser.getLoginTime() + expireSeconds * 1000);
 		QdToken model = new QdToken();
 		model.setId(loginUser.getToken());
-		model.setCreateTime(DateUtil.getNowDateString());
-		model.setUpdateTime(DateUtil.getNowDateString());
-		model.setExpireTime(DateUtil.getYyyyMMddHHMMDDString(new Date(loginUser.getExpireTime())));
+		model.setCreateTime(DateUtils.dateTimeNow());
+		model.setUpdateTime(DateUtils.dateTimeNow());
+		model.setExpireTime(DateUtils.dateTime(new Date(loginUser.getExpireTime())));
 		model.setVal(JSONObject.toJSONString(loginUser));
 		tokenMapper.insert(model);
 		String jwtToken = createJWTToken(loginUser);
@@ -90,8 +90,8 @@ public class TokenService implements ITokenService {
 		loginUser.setLoginTime(System.currentTimeMillis());
 		loginUser.setExpireTime(loginUser.getLoginTime() + expireSeconds * 1000);
 		QdToken model = tokenMapper.get(loginUser.getToken());
-		model.setUpdateTime(DateUtil.getNowDateString());
-		model.setExpireTime(DateUtil.getYyyyMMddHHMMDDString(new Date(loginUser.getExpireTime())));
+		model.setUpdateTime(DateUtils.dateTimeNow());
+		model.setExpireTime(DateUtils.dateTime(new Date(loginUser.getExpireTime())));
 		model.setVal(JSONObject.toJSONString(loginUser));
 		tokenMapper.update(model);
 	}
@@ -118,7 +118,7 @@ public class TokenService implements ITokenService {
 			return null;
 		}
 		// 校验是否已过期
-		if (DateUtil.getYyyyMMddHHMMDDSSSString(model.getExpireTime()).getTime() > System.currentTimeMillis()) {
+		if (DateUtils.dateTime("yyyyMMddHHmmss", model.getExpireTime()).getTime() > System.currentTimeMillis()) {
 			return JSONObject.parseObject(model.getVal(), LoginUser.class);
 		}
 		return null;

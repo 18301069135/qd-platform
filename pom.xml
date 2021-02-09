@@ -79,6 +79,7 @@
 
 	<modules>
 		<module>qd-core</module>
+		<module>qd-generator</module>
 		<module>qd-server</module>
 	</modules>
 	<build>

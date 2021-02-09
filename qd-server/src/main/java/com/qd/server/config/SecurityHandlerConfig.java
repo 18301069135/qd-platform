@@ -32,7 +32,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.qd.core.util.ResponseInfo;
+import com.qd.core.util.JsonResult;
 import com.qd.core.util.ResponseUtil;
 import com.qd.server.filter.TokenFilter;
 import com.qd.server.model.po.QdResource;
@@ -99,7 +99,7 @@ public class SecurityHandlerConfig {
 				} else {
 					msg = exception.getMessage();
 				}
-				ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", msg);
+				JsonResult info = JsonResult.error(HttpStatus.UNAUTHORIZED, msg, null);
 				ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
 			}
 		};
@@ -116,7 +116,7 @@ public class SecurityHandlerConfig {
 			@Override
 			public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authentication) throws IOException, ServletException {
-				ResponseInfo info = new ResponseInfo(HttpStatus.OK.value() + "", "退出成功");
+				JsonResult info = JsonResult.success("退出成功");
 				String token = TokenFilter.getToken(request);
 				tokenService.delete(token);
 				ResponseUtil.responseJson(response, HttpStatus.OK.value(), info);
@@ -135,7 +135,7 @@ public class SecurityHandlerConfig {
 			@Override
 			public void commence(HttpServletRequest request, HttpServletResponse response,
 					AuthenticationException authException) throws IOException, ServletException {
-				ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "", authException.getMessage());
+				JsonResult info = JsonResult.error(HttpStatus.UNAUTHORIZED, authException.getMessage(), null);
 				ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
 			}
 		};
@@ -152,8 +152,8 @@ public class SecurityHandlerConfig {
 			@Override
 			public void handle(HttpServletRequest request, HttpServletResponse response,
 					AccessDeniedException accessDeniedException) throws IOException, ServletException {
-				ResponseInfo info = new ResponseInfo(HttpStatus.UNAUTHORIZED.value() + "",
-						accessDeniedException.getMessage());
+				JsonResult info = new JsonResult(HttpStatus.UNAUTHORIZED.value(), accessDeniedException.getMessage(),
+						null);
 				ResponseUtil.responseJson(response, HttpStatus.UNAUTHORIZED.value(), info);
 			}
 		};
@@ -239,7 +239,6 @@ public class SecurityHandlerConfig {
 			public boolean supports(Class<?> clazz) {
 				return false;
 			}
-
 		};
 	}
 
