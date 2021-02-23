@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: dev
+
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+
+# MyBatis
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.javaweb.**.mapper
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    
+# 代码生成
+generate:
+  # 作者
+  author: 周琦
+  # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
+  packageName: com.qd.server
+  # 模块名
+  moduleName: qd-server
+  # 自动去除表前缀，默认是true
+  autoRemovePre: true
+  # 表前缀（生成类名不会包含表前缀，多个用逗号分隔）
+  tablePrefix: qd_    
