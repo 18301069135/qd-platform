@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.RegExUtils;
 
-import com.qd.core.util.StringUtils;
+import com.qd.common.utils.StringUtils;
 import com.qd.generator.config.GenConfig;
 import com.qd.generator.constant.GenConstants;
 import com.qd.generator.entity.GenTable;

@@ -1,25 +1,22 @@
-package com.qd.server.model.vo;
+package com.qd.server.dto;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.qd.server.model.po.QdResource;
-import com.qd.server.model.po.QdUser;
+import com.qd.server.entity.User;
 
-import io.jsonwebtoken.lang.Collections;
 import lombok.Data;
 
 @SuppressWarnings("serial")
 @Data
-public class LoginUser implements UserDetails {
+public class UserDto implements UserDetails {
 
-	private QdUser user;
+	private User user;
 
 	private String token;
 
@@ -29,24 +26,24 @@ public class LoginUser implements UserDetails {
 	/** 过期时间戳 */
 	private Long expireTime;
 
-	public LoginUser(QdUser user) {
+	public UserDto(User user) {
 		this.user = user;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-		List<Role> roles = user.getRoles();
-		if (!Collections.isEmpty(roles)) {
-			for (Role role : roles) {
-				List<QdResource> resources = role.getResources();
-				if (!Collections.isEmpty(resources)) {
-					for (QdResource resource : resources) {
-						authorities.add(new SimpleGrantedAuthority(String.valueOf(resource.getId())));
-					}
-				}
-			}
-		}
+//		List<Role> roles = user.getRoles();
+//		if (!Collections.isEmpty(roles)) {
+//			for (Role role : roles) {
+//				List<Resource> resources = role.getResources();
+//				if (!Collections.isEmpty(resources)) {
+//					for (Resource resource : resources) {
+//						authorities.add(new SimpleGrantedAuthority(String.valueOf(resource.getId())));
+//					}
+//				}
+//			}
+//		}
 		return authorities;
 	}
 
@@ -89,7 +86,7 @@ public class LoginUser implements UserDetails {
 	 */
 	@Override
 	public boolean isEnabled() {
-		return user.getEnabled() == 1 ? true : false;
+		return user.getIsDeleted() == 0 ? true : false;
 	}
 
 }

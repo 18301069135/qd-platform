@@ -10,9 +10,6 @@ import com.qd.generator.query.GenTableQuery;
  * <p>
  * 代码生成业务表 Mapper 接口
  * </p>
- *
- * @author 鲲鹏
- * @since 2020-03-25
  */
 public interface GenTableMapper extends BaseMapper<GenTable> {
 

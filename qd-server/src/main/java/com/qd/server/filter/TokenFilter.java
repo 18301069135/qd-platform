@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.qd.server.model.vo.LoginUser;
+import com.qd.server.dto.UserDto;
 import com.qd.server.service.ITokenService;
 import com.qd.server.service.impl.UserDetailsServiceImpl;
 
@@ -38,7 +38,7 @@ public class TokenFilter extends OncePerRequestFilter {
 		response.setContentType("text/html;charset=utf-8");
 		String token = getToken(request);
 		if (!StringUtils.isEmpty(token)) {
-			LoginUser loginUser = null;
+			UserDto loginUser = null;
 			try {
 				loginUser = tokenService.getUser(token);
 			} catch (Exception ex) {
@@ -71,12 +71,12 @@ public class TokenFilter extends OncePerRequestFilter {
 		filterChain.doFilter(xssHttpServletRequestWrapper, response);
 	}
 
-	private LoginUser checkLoginTime(LoginUser loginUser) {
+	private UserDto checkLoginTime(UserDto loginUser) {
 		long expireTime = loginUser.getExpireTime();
 		long currentTime = System.currentTimeMillis();
 		if (expireTime - currentTime <= MINUTES_10) {
 			String token = loginUser.getToken();
-			loginUser = (LoginUser) userLoginService.loadUserByUsername(loginUser.getUsername());
+			loginUser = (UserDto) userLoginService.loadUserByUsername(loginUser.getUsername());
 			loginUser.setToken(token);
 			tokenService.update(loginUser);
 		}

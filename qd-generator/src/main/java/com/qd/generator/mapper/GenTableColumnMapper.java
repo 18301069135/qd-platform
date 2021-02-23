@@ -10,8 +10,6 @@ import java.util.List;
  * 代码生成业务表字段 Mapper 接口
  * </p>
  *
- * @author 鲲鹏
- * @since 2020-03-26
  */
 public interface GenTableColumnMapper extends BaseMapper<GenTableColumn> {
 

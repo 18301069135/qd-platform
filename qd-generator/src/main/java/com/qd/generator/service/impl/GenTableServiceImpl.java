@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qd.core.BaseQuery;
-import com.qd.core.exception.CustomException;
-import com.qd.core.service.impl.BaseServiceImpl;
-import com.qd.core.util.DateUtils;
-import com.qd.core.util.JsonResult;
-import com.qd.core.util.StringUtils;
+import com.qd.common.common.BaseQuery;
+import com.qd.common.common.BaseServiceImpl;
+import com.qd.common.exception.CustomException;
+import com.qd.common.utils.DateUtils;
+import com.qd.common.utils.JsonResult;
+import com.qd.common.utils.StringUtils;
 import com.qd.generator.constant.GenConstants;
 import com.qd.generator.entity.GenTable;
 import com.qd.generator.entity.GenTableColumn;

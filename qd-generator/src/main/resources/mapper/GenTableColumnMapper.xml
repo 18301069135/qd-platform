@@ -35,7 +35,7 @@
 	</select>
 
     <!-- 插入表列信息 -->
-    <insert id="insertGenTableColumn" parameterType="com.javaweb.generator.entity.GenTableColumn" useGeneratedKeys="true"
+    <insert id="insertGenTableColumn" parameterType="com.qd.generator.entity.GenTableColumn" useGeneratedKeys="true"
             keyProperty="id">
         insert into sys_gen_table_column (
         <if test="tableId != null and tableId != ''">table_id,</if>
@@ -92,7 +92,7 @@
     </select>
 
     <!-- 更新业务表字段 -->
-    <update id="updateGenTableColumn" parameterType="com.javaweb.generator.entity.GenTableColumn">
+    <update id="updateGenTableColumn" parameterType="com.qd.generator.entity.GenTableColumn">
         update sys_gen_table_column
         <set>
             column_comment = #{columnComment},

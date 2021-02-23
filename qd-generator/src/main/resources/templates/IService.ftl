@@ -1,7 +1,7 @@
 package ${packageName}.service;
 
 import ${packageName}.entity.${entityName};
-import com.javaweb.common.common.IBaseService;
+import com.qd.common.common.IBaseService;
 
 /**
  * <p>

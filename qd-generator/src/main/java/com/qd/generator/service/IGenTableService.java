@@ -2,8 +2,8 @@ package com.qd.generator.service;
 
 import java.util.List;
 
-import com.qd.core.service.IBaseService;
-import com.qd.core.util.JsonResult;
+import com.qd.common.common.IBaseService;
+import com.qd.common.utils.JsonResult;
 import com.qd.generator.entity.GenTable;
 import com.qd.generator.query.GenTableQuery;
 

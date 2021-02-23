@@ -1,16 +1,24 @@
 package com.qd.server.service;
 
-import com.qd.server.model.vo.LoginUser;
-import com.qd.server.model.vo.Token;
+import com.qd.server.dto.TokenDto;
+import com.qd.server.dto.UserDto;
 
+/**
+ * <p>
+ * 令牌记录 服务类
+ * </p>
+ *
+ * @author 周琦
+ * @since 2021-02-20
+ */
 public interface ITokenService {
 
-	Token save(LoginUser loginUser);
+	TokenDto save(UserDto loginUser);
 
-	LoginUser getUser(String token);
+	UserDto getUser(String token);
 
 	int delete(String token);
 
-	void update(LoginUser loginUser);
+	void update(UserDto loginUser);
 
 }

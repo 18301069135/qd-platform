@@ -28,7 +28,7 @@ public class ${entityName}ListVo {
     /**
      * ${model.columnComment!}
      */
-    <#if (model.columnType = 'VARCHAR' || model.columnType = 'CHAR' || model.columnType = 'TEXT' || model.columnType = 'MEDIUMTEXT')>
+    <#if (model.columnType = 'VARCHAR' || model.columnType = 'CHAR' || model.columnType = 'TEXT' || model.columnType = 'MEDIUMTEXT' || model.columnType = 'VARCHAR2')>
     private String ${model.changeColumnName?uncap_first};
 
     </#if>
@@ -46,7 +46,7 @@ public class ${entityName}ListVo {
     private Integer ${model.changeColumnName?uncap_first};
 
     </#if>
-    <#if (model.columnType = 'INT UNSIGNED' || model.columnType = 'INT')>
+    <#if (model.columnType = 'INT UNSIGNED' || model.columnType = 'INT' || model.columnType = 'NUMBER')>
     private Integer ${model.changeColumnName?uncap_first};
 
     </#if>

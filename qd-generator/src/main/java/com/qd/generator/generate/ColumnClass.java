@@ -28,4 +28,14 @@ public class ColumnClass {
 	 **/
 	private String columnComment;
 
+	/***
+	 * 数据库字段长度
+	 */
+	private Integer columnLength;
+
+	/***
+	 * 是否主键
+	 */
+	private Integer isPk;
+
 }

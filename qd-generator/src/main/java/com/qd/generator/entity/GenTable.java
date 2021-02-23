@@ -19,13 +19,11 @@ import lombok.experimental.Accessors;
  * 代码生成业务表
  * </p>
  *
- * @author 鲲鹏
- * @since 2020-03-25
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("sys_gen_table")
+@TableName("qd_gen_table")
 public class GenTable extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

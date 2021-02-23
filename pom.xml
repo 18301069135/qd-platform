@@ -50,7 +50,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- 引入log4j2依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,7 +67,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<!-- 工具包 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -76,11 +74,11 @@
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
-
 	<modules>
-		<module>qd-core</module>
+		<module>qd-common</module>
 		<module>qd-generator</module>
 		<module>qd-server</module>
+		<module>qd-admin-sample</module>
 	</modules>
 	<build>
 		<plugins>

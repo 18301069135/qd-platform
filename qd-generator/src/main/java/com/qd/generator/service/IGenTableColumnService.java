@@ -2,7 +2,7 @@ package com.qd.generator.service;
 
 import java.util.List;
 
-import com.qd.core.service.IBaseService;
+import com.qd.common.common.IBaseService;
 import com.qd.generator.entity.GenTableColumn;
 
 /**
@@ -10,8 +10,6 @@ import com.qd.generator.entity.GenTableColumn;
  * 代码生成业务表字段 服务类
  * </p>
  *
- * @author 鲲鹏
- * @since 2020-03-26
  */
 public interface IGenTableColumnService extends IBaseService<GenTableColumn> {
 

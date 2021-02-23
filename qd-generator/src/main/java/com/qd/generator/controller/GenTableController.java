@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qd.core.util.ConvertUtil;
-import com.qd.core.util.JsonResult;
+import com.qd.common.utils.ConvertUtil;
+import com.qd.common.utils.JsonResult;
 import com.qd.generator.entity.GenTable;
 import com.qd.generator.entity.GenTableColumn;
 import com.qd.generator.query.GenTableQuery;
@@ -26,8 +26,7 @@ import com.qd.generator.service.IGenTableService;
  * 代码生成业务表 前端控制器
  * </p>
  *
- * @author 鲲鹏
- * @since 2020-03-25
+ * @author 周琦
  */
 @RestController
 @RequestMapping("/gentable")

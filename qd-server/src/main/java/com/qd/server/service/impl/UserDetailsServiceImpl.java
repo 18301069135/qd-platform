@@ -9,8 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.qd.server.model.po.QdUser;
-import com.qd.server.model.vo.LoginUser;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.qd.server.dto.UserDto;
+import com.qd.server.entity.User;
 import com.qd.server.service.IUserService;
 
 @Service("userDetailsServiceImpl")
@@ -25,11 +26,13 @@ public class UserDetailsServiceImpl
 		if (StringUtils.isEmpty(userCode)) {
 			throw new UsernameNotFoundException("userCode不能为空！");
 		}
-		QdUser user = userService.getByCode(userCode);
+		QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("code", userCode);
+		User user = userService.getOne(queryWrapper);
 		if (user == null) {
 			throw new UsernameNotFoundException("用户名：" + userCode + "不存在！");
 		}
-		return new LoginUser(user);
+		return new UserDto(user);
 	}
 
 	/***
@@ -38,16 +41,18 @@ public class UserDetailsServiceImpl
 	@Override
 	public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
 		String userCode = event.getAuthentication().getPrincipal().toString();
-		QdUser user = userService.getByCode(userCode);
+		QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("code", userCode);
+		User user = userService.getOne(queryWrapper);
 		if (user == null) {
 			throw new UsernameNotFoundException("用户名：" + userCode + "不存在！");
 		}
 		if (user.getErrorNum() == 5) {
-			user.setIsLock(1);
+			user.setIsLock(1L);
 		} else {
 			user.setErrorNum(user.getErrorNum() + 1);
 		}
-		userService.edit(user, false);
+		userService.edit(user);
 	}
 
 }

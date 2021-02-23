@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qd.core.service.impl.BaseServiceImpl;
+import com.qd.common.common.BaseServiceImpl;
 import com.qd.generator.entity.GenTableColumn;
 import com.qd.generator.mapper.GenTableColumnMapper;
 import com.qd.generator.service.IGenTableColumnService;

@@ -2,8 +2,6 @@ package com.qd.server.config;
 
 import javax.sql.DataSource;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,8 +9,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -56,23 +52,23 @@ public class DataSourceConfig {
 		return dataSource;
 	}
 
-	/**
-	 * 初始化Session工厂
-	 * 
-	 * @return
-	 */
-	@SneakyThrows
-	@Bean
-	public SqlSessionFactory initSqlSessionFactory(@Autowired DataSource dataSource) {
-		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-		factoryBean.setDataSource(dataSource);
-		factoryBean.setMapperLocations(
-				new PathMatchingResourcePatternResolver().getResources("/mybatis/mapper/*Mapper.xml"));
-		factoryBean.setConfigLocation(new ClassPathResource("/mybatis/mybatis-config.xml"));
-		SqlSessionFactory factory = factoryBean.getObject();
-		factory.getConfiguration().setMapUnderscoreToCamelCase(true);
-		return factory;
-	}
+//	/**
+//	 * 初始化Session工厂
+//	 * 
+//	 * @return
+//	 */
+//	@SneakyThrows
+//	@Bean
+//	public SqlSessionFactory initSqlSessionFactory(@Autowired DataSource dataSource) {
+//		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+//		factoryBean.setDataSource(dataSource);
+//		factoryBean.setMapperLocations(
+//				new PathMatchingResourcePatternResolver().getResources("/mybatis/mapper/*Mapper.xml"));
+//		factoryBean.setConfigLocation(new ClassPathResource("/mybatis/mybatis-config.xml"));
+//		SqlSessionFactory factory = factoryBean.getObject();
+//		factory.getConfiguration().setMapUnderscoreToCamelCase(true);
+//		return factory;
+//	}
 
 	/**
 	 * 设置过滤

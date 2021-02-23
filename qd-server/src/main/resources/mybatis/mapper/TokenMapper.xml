@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qd.server.mapper.QdTokenMapper">
+<mapper namespace="com.qd.server.mapper.TokenMapper">
 
-	<resultMap type="com.qd.server.model.po.QdToken"
-		id="QdTokenMap">
+	<resultMap type="com.qd.server.entity.Token"
+		id="TokenMap">
 		<result property="id" column="ID" jdbcType="VARCHAR" />
 		<result property="createTime" column="CREATE_TIME" jdbcType="VARCHAR" />
 		<result property="updateTime" column="UPDATE_TIME" jdbcType="VARCHAR" />
@@ -19,7 +19,7 @@
 	</sql>
 
 	<!--通过ID查询数据 -->
-	<select id="get" resultMap="QdTokenMap">
+	<select id="get" resultMap="TokenMap">
 		<include refid="sql_select_qd_token"></include>
 		and ID = #{token}
 	</select>

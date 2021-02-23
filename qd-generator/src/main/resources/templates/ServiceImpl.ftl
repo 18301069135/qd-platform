@@ -9,10 +9,10 @@ import ${packageName}.query.${entityName}Query;
 import ${packageName}.service.I${entityName}Service;
 import ${packageName}.vo.${entityName?lower_case}.${entityName}InfoVo;
 import ${packageName}.vo.${entityName?lower_case}.${entityName}ListVo;
-import com.javaweb.common.common.BaseQuery;
-import com.javaweb.common.common.BaseServiceImpl;
-import com.javaweb.common.utils.DateUtils;
-import com.javaweb.common.utils.JsonResult;
+import com.qd.common.common.BaseQuery;
+import com.qd.common.common.BaseServiceImpl;
+import com.qd.common.utils.DateUtils;
+import com.qd.common.utils.JsonResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,24 +54,6 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
             queryWrapper.like("name", ${entityName?uncap_first}Query.getName());
         }
         </#if>
-        <#if model.columnName = 'title'>
-        // ${model.columnComment!}
-        if (!StringUtils.isEmpty(${entityName?uncap_first}Query.getTitle())) {
-            queryWrapper.like("title", ${entityName?uncap_first}Query.getTitle());
-        }
-        </#if>
-        <#if model.columnName = 'mobile'>
-        // ${model.columnComment!}
-        if (!StringUtils.isEmpty(${entityName?uncap_first}Query.getMobile())) {
-            queryWrapper.like("mobile", ${entityName?uncap_first}Query.getMobile());
-        }
-        </#if>
-        <#if model.columnName = 'type'>
-        // ${model.columnComment!}
-        if (!StringUtils.isEmpty(${entityName?uncap_first}Query.getType())) {
-            queryWrapper.eq("type", ${entityName?uncap_first}Query.getType());
-        }
-        </#if>
         <#if model.columnName = 'status'>
         // ${model.columnComment!}
         if (!StringUtils.isEmpty(${entityName?uncap_first}Query.getStatus())) {
@@ -80,8 +62,14 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
         </#if>
     </#list>
 </#if>
-        queryWrapper.eq("mark", 1);
-        queryWrapper.orderByDesc("id");
+        queryWrapper.eq("is_deleted", 0);
+<#if model_column?exists>
+       <#list model_column as model>
+         <#if model.isPk = 1>
+        	queryWrapper.orderByDesc("${model.columnName}");
+          </#if>
+    </#list>
+</#if>
 
         // 获取数据列表
         IPage<${entityName}> page = new Page<>(${entityName?uncap_first}Query.getPageIndex(), ${entityName?uncap_first}Query.getPageSize());
@@ -131,14 +119,17 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
      */
     @Override
     public JsonResult edit(${entityName} entity) {
-        if (entity.getId() != null && entity.getId() > 0) {
+    <#if model_column?exists>
+       <#list model_column as model>
+         <#if model.isPk = 1>
+        if (entity.get${model.changeColumnName}() != null &&  !"".equals(entity.get${model.changeColumnName}())) {
+          </#if>
+    </#list>
+</#if>
     <#if model_column?exists>
         <#list model_column as model>
-            <#if model.changeColumnName?uncap_first = 'updateUser'>
-            entity.setUpdateUser(1);
-            </#if>
             <#if model.changeColumnName?uncap_first = 'updateTime'>
-            entity.setUpdateTime(DateUtils.now());
+            entity.setUpdateTime(java.lang.System.currentTimeMillis());
             </#if>
         </#list>
     </#if>
@@ -146,10 +137,10 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     <#if model_column?exists>
         <#list model_column as model>
             <#if model.changeColumnName?uncap_first = 'createUser'>
-            entity.setCreateUser(1);
+            entity.setCreateUser("1");
             </#if>
             <#if model.changeColumnName?uncap_first = 'createTime'>
-            entity.setCreateTime(DateUtils.now());
+            entity.setCreateTime(java.lang.System.currentTimeMillis());
             </#if>
         </#list>
     </#if>
@@ -167,15 +158,12 @@ public class ${entityName}ServiceImpl extends BaseServiceImpl<${entityName}Mappe
     public JsonResult delete(${entityName} entity) {
 <#if model_column?exists>
     <#list model_column as model>
-        <#if model.changeColumnName?uncap_first = 'updateUser'>
-        entity.setUpdateUser(1);
-        </#if>
         <#if model.changeColumnName?uncap_first = 'updateTime'>
-        entity.setUpdateTime(DateUtils.now());
+        entity.setUpdateTime(java.lang.System.currentTimeMillis());
         </#if>
     </#list>
 </#if>
-        entity.setMark(0);
+        entity.setIsDeleted(0);
         return super.delete(entity);
     }
 }

@@ -6,9 +6,10 @@ import java.util.Map;
 import org.junit.Test;
 import org.springframework.util.DigestUtils;
 
-import com.qd.core.util.HttpClientUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.qd.common.utils.HttpClientUtil;
 
-public class loginTest {
+public class LoginTest {
 
 	@Test
 	public void login() {
@@ -16,9 +17,14 @@ public class loginTest {
 		Map<String, String> param = new HashMap<>();
 		param.put("username", "admin");
 		param.put("password", DigestUtils.md5DigestAsHex("1".getBytes()));
+		// 1、登陆
 		String result = HttpClientUtil.doPost(url, param);
+		JSONObject jsonObject = JSONObject.parseObject(result);
+		String token = jsonObject.getString("token");
+		System.out.println("令牌:" + token);
+		//2、首页
 		
-		System.out.println(result);
+
 	}
 
 }

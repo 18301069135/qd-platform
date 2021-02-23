@@ -32,13 +32,13 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.qd.core.util.JsonResult;
-import com.qd.core.util.ResponseUtil;
+import com.qd.common.utils.JsonResult;
+import com.qd.common.utils.ResponseUtil;
+import com.qd.server.dto.TokenDto;
+import com.qd.server.dto.UserDto;
+import com.qd.server.entity.Resource;
+import com.qd.server.entity.User;
 import com.qd.server.filter.TokenFilter;
-import com.qd.server.model.po.QdResource;
-import com.qd.server.model.po.QdUser;
-import com.qd.server.model.vo.LoginUser;
-import com.qd.server.model.vo.Token;
 import com.qd.server.service.IResourceService;
 import com.qd.server.service.ITokenService;
 import com.qd.server.service.IUserService;
@@ -68,15 +68,15 @@ public class SecurityHandlerConfig {
 			@Override
 			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 					Authentication authentication) throws IOException, ServletException {
-				LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+				UserDto loginUser = (UserDto) authentication.getPrincipal();
 				int b = tokenService.delete(TokenFilter.getToken(request));
 				if (b == 1) {
 					log.info("用户：" + loginUser.getUsername() + "已经在其它地方登录过，踢除！");
 				}
-				QdUser user = userService.getByCode(loginUser.getUser().getCode());
-				user.setErrorNum(0);
-				userService.edit(user, false);
-				Token token = tokenService.save(loginUser);
+				User user = userService.getById(loginUser.getUser().getUserId());
+				user.setErrorNum(0L);
+				userService.edit(user);
+				TokenDto token = tokenService.save(loginUser);
 				ResponseUtil.responseJson(response, HttpStatus.OK.value(), token);
 			}
 		};
@@ -212,13 +212,12 @@ public class SecurityHandlerConfig {
 			public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 				HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
 				// 查询所有http类型的资源
-				List<QdResource> resources = resourceService.getByType(http);
-				QdResource resource = null;
+				List<Resource> resources = resourceService.list();
+				Resource resource = null;
 				// 按照url匹配
 				if (resources != null && resources.size() > 0) {
-					for (QdResource r : resources) {
-						RequestMatcher requestMatcher = new AntPathRequestMatcher(r.getResourcePattern(),
-								r.getResourceMethod());
+					for (Resource r : resources) {
+						RequestMatcher requestMatcher = new AntPathRequestMatcher(r.getResourceUrl());
 						if (requestMatcher.matches(request)) {
 							resource = r;
 						}
@@ -227,7 +226,7 @@ public class SecurityHandlerConfig {
 				if (resource == null) {
 					return null;
 				}
-				return SecurityConfig.createList(String.valueOf(resource.getId()));
+				return SecurityConfig.createList(String.valueOf(resource.getResourceId()));
 			}
 
 			@Override

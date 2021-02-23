@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.qd.core.util.StringUtils;
+import com.qd.common.utils.StringUtils;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,13 +17,11 @@ import lombok.experimental.Accessors;
  * 代码生成业务表字段
  * </p>
  *
- * @author 鲲鹏
- * @since 2020-03-26
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("sys_gen_table_column")
+@TableName("qd_gen_table_column")
 public class GenTableColumn extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

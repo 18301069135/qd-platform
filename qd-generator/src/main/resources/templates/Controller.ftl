@@ -4,10 +4,10 @@ package ${packageName}.controller;
 import ${packageName}.entity.${entityName};
 import ${packageName}.query.${entityName}Query;
 import ${packageName}.service.I${entityName}Service;
-import com.javaweb.common.annotation.Log;
-import com.javaweb.common.common.BaseController;
-import com.javaweb.common.enums.BusinessType;
-import com.javaweb.common.utils.JsonResult;
+import com.qd.common.annotation.Log;
+import com.qd.common.common.BaseController;
+import com.qd.common.enums.BusinessType;
+import com.qd.common.utils.JsonResult;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +60,7 @@ public class ${entityName}Controller extends BaseController {
      */
     @GetMapping("/info")
     @RequiresPermissions("${entityName?lower_case}:info")
-    public JsonResult info(Integer id) {
+    public JsonResult info(String id) {
         return ${entityName?uncap_first}Service.info(id);
     }
 

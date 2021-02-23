@@ -1,6 +1,6 @@
 package com.qd.generator.query;
 
-import com.qd.core.BaseQuery;
+import com.qd.common.common.BaseQuery;
 
 import lombok.Data;
 

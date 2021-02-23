@@ -1,6 +1,6 @@
 package ${packageName}.query;
 
-import com.javaweb.common.common.BaseQuery;
+import com.qd.common.common.BaseQuery;
 import lombok.Data;
 
 /**
@@ -23,32 +23,32 @@ public class ${entityName}Query extends BaseQuery {
     private String ${model.changeColumnName?uncap_first};
 
     </#if>
-    <#if model.columnName = 'title'>
+    <#if model.columnName = 'code'>
     /**
      * ${model.columnComment!}
      */
     private String ${model.changeColumnName?uncap_first};
 
     </#if>
-    <#if model.columnName = 'mobile'>
+    <#if model.columnName = 'value'>
     /**
      * ${model.columnComment!}
      */
     private String ${model.changeColumnName?uncap_first};
 
     </#if>
-    <#if model.columnName = 'type'>
+    <#if model.columnName = 'orders'>
     /**
      * ${model.columnComment!}
      */
-    private Integer ${model.changeColumnName?uncap_first};
+    private Long ${model.changeColumnName?uncap_first};
 
     </#if>
-    <#if model.columnName = 'status'>
+    <#if model.columnName = 'remark'>
     /**
      * ${model.columnComment!}
      */
-    private Integer ${model.changeColumnName?uncap_first};
+    private String ${model.changeColumnName?uncap_first};
 
     </#if>
     </#list>

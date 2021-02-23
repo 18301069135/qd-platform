@@ -1,11 +1,11 @@
-package com.qd.server.model.vo;
+package com.qd.server.dto;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.qd.server.model.po.QdRole;
+import com.qd.server.entity.Role;
 
 @SuppressWarnings("serial")
-public class Role extends QdRole implements GrantedAuthority {
+public class RoleDto extends Role implements GrantedAuthority {
 
 	@Override
 	public String getAuthority() {
