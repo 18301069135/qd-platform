@@ -1,5 +1,7 @@
 package com.qd.server.config;
 
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ public class DataSourceConfig {
 	@SneakyThrows
 	@Bean("druidDataSource")
 	@ConfigurationProperties(prefix = "spring.datasource.druid")
-	public DataSource initDataSource() {
+	public DataSource initDataSource() throws SQLException {
 		DruidDataSource dataSource = new DruidDataSource();
 		dataSource.setUsername(properties.getUsername());
 		dataSource.setPassword(properties.getPassword());
@@ -51,24 +53,6 @@ public class DataSourceConfig {
 
 		return dataSource;
 	}
-
-//	/**
-//	 * 初始化Session工厂
-//	 * 
-//	 * @return
-//	 */
-//	@SneakyThrows
-//	@Bean
-//	public SqlSessionFactory initSqlSessionFactory(@Autowired DataSource dataSource) {
-//		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-//		factoryBean.setDataSource(dataSource);
-//		factoryBean.setMapperLocations(
-//				new PathMatchingResourcePatternResolver().getResources("/mybatis/mapper/*Mapper.xml"));
-//		factoryBean.setConfigLocation(new ClassPathResource("/mybatis/mybatis-config.xml"));
-//		SqlSessionFactory factory = factoryBean.getObject();
-//		factory.getConfiguration().setMapUnderscoreToCamelCase(true);
-//		return factory;
-//	}
 
 	/**
 	 * 设置过滤
